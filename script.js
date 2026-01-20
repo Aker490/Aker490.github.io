@@ -8,7 +8,7 @@ const MAX_LEN = 12;
 const DELAY = 1300;
 
 // 🔴 เปลี่ยนเป็น URL Proxy ของคุณ
-const API = "https://YOUR-WORKER-URL.workers.dev";
+const API = "https://weathered-bird-0dfd.dhhdhdhdhdjrjdhdjdjdu.workers.dev";
 
 function log(msg, cls="") {
   const el = document.getElementById("log");
