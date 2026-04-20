@@ -1,0 +1,49 @@
+name: Build & Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # 🔥 บังคับใช้ Node 24 ล่วงหน้า
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      # 📥 ดึงโค้ด
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 🟢 ตั้งค่า Node (เผื่อใช้ npm ในอนาคต)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # 📦 (ถ้ามี package.json จะ install ให้)
+      - name: Install dependencies
+        run: |
+          if [ -f package.json ]; then
+            npm install
+          fi
+
+      # 🏗️ Build (ถ้ามี script build)
+      - name: Build project
+        run: |
+          if [ -f package.json ]; then
+            npm run build || echo "No build script"
+          else
+            echo "Static project - no build needed"
+          fi
+
+      # 📤 อัปโหลดไฟล์ (artifact)
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: |
+            .
