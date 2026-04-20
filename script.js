@@ -20,7 +20,11 @@ function generateName() {
   const w1 = WORDS[Math.floor(Math.random()*WORDS.length)];
   const w2 = WORDS[Math.floor(Math.random()*WORDS.length)];
   const num = Math.random() < 0.5 ? Math.floor(Math.random()*999) : "";
-  return `${w1}_${w2}${num}`.slice(0, MAX_LEN);
+
+  const useUnderscore = document.getElementById("useUnderscore").checked;
+  const separator = useUnderscore ? "_" : "";
+
+  return `${w1}${separator}${w2}${num}`.slice(0, MAX_LEN);
 }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
